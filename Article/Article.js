@@ -85,30 +85,89 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },  {
+    title: 'Yarr, I get it, can I move on now?',
+    date: 'Mar 3st, 1889',
+    firstParagraph: `Execution dock mutiny plunder Pirate Round furl lookout Yellow Jack scurvy maroon league. Ballast parley cable gunwalls grapple line swing the lead warp keelhaul interloper. Sloop clipper nipperkin rope's end run a shot across the bow squiffy lugsail lookout parley Plate Fleet.`,
+
+    secondParagraph: `Reef sails case shot heave to dead men tell no tales come about red ensign bucko bilge smartly coxswain. Nelsons folly gun mutiny scallywag hulk nipper Sea Legs hardtack dance the hempen jig cutlass. Mizzen keelhaul maroon take a caulk Blimey chandler salmagundi bilge water hornswaggle haul wind.`,
+
+    thirdParagraph: `List Chain Shot hands blow the man down long boat bring a spring upon her cable belaying pin hardtack cable avast. Spanish Main jury mast list bounty crimp handsomely draft boatswain Privateer case shot. Topsail capstan deadlights Davy Jones' Locker lee ye dead men tell no tales long boat to go on account crow's nest.`
+  },  {
+    title: `Don't be swabbin my poop deck without proper consent`,
+    date: 'Jun 32nd, 1901',
+    firstParagraph: `Broadside black jack Barbary Coast reef sails scourge of the seven seas man-of-war snow jack Admiral of the Black fore. Bowsprit sheet Admiral of the Black league tack Arr prow swab Blimey plunder. Maroon piracy rum coxswain strike colors Jolly Roger killick Cat o'nine tails cutlass bilged on her anchor.`,
+
+    secondParagraph: `Man-of-war hempen halter long boat gun coxswain sheet bilge water rope's end grapple clipper. Warp me quarterdeck Blimey Jolly Roger splice the main brace ballast run a rig jolly boat code of conduct. Prow fore barque wench long boat port squiffy dance the hempen jig poop deck pressgang.`,
+
+    thirdParagraph: `Shiver me timbers swing the lead hardtack yo-ho-ho list Plate Fleet bilge water stern red ensign barque. Yo-ho-ho wench fluke swing the lead Yellow Jack landlubber or just lubber hang the jib reef weigh anchor gibbet. Smartly mutiny spirits gibbet Admiral of the Black lanyard line come about execution dock swing the lead.`
   }
 ];
 
-/* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
+
+//  Step 1: Create a function that creates a component. You will want your component to look like the template below: 
+
+
+//   <div class="article">
+//     <h2>{title of the article}</h2>
+//     <p class="date">{date of the article}</p>
+
+//     {three separate paragraph elements}
+
+//     <span class='expandButton'></span>
+//   </div>
+//   Hint: You will need to use createElement more than once here!
+
+//   Your function should take either an object as it's one argument, or 5 separate arguments mapping to each peice of the data object above.
+
+function createArticle(title,date,firstParagraph,secondParagraph,thirdParagraph){
+  // console.log(title);
+  const ArticleItem = document.createElement('div');
+  const ArticleTitle = document.createElement('h2');
+  const ArticleDate = document.createElement('p');
+  const ArticleFirstParagraph = document.createElement('p');
+  const ArticleSecondParagraph = document.createElement('p');
+  const ArticleThirdParagraph = document.createElement('p');
+  const ArticleSpan = document.createElement('span');
+
+  ArticleItem.appendChild(ArticleTitle);
+  ArticleItem.appendChild(ArticleDate);
+  ArticleItem.appendChild(ArticleFirstParagraph);
+  ArticleItem.appendChild(ArticleSecondParagraph);
+  ArticleItem.appendChild(ArticleThirdParagraph);
+  ArticleItem.appendChild(ArticleSpan);
+
+  ArticleItem.classList.add('article');
+  ArticleDate.classList.add('date');
+  ArticleSpan.classList.add('expandButton');
   
-  <div class="article">
-    <h2>{title of the article}</h2>
-    <p class="date">{date of the article}</p>
 
-    {three separate paragraph elements}
+//   Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
+ArticleSpan.addEventListener('click', e => {
+  ArticleItem.classList.toggle('article-open');
+  (ArticleItem.classList.contains('article-open'))?ArticleSpan.textContent="Close":ArticleSpan.textContent="Open";;
+});
 
-    <span class='expandButton'></span>
-  </div>
+ArticleTitle.textContent=title;
+ArticleDate.textContent=date;
+ArticleFirstParagraph.textContent=firstParagraph;
+ArticleSecondParagraph.textContent=secondParagraph;
+ArticleThirdParagraph.textContent=thirdParagraph;
+ArticleSpan.textContent="Open";
+//   Step 3: return the entire component.
+return ArticleItem;
+};
 
-  Hint: You will need to use createElement more than once here!
+//   Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
 
-  Your function should take either an object as it's one argument, or 5 separate arguments mapping to each peice of the data object above.
+const articlesSection = document.querySelector('.articles');
+// alert(articlesSection);
+// console.log(articlesSection);
 
-  Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
+data.map(item=>{
+  articlesSection.appendChild(createArticle(item.title,item.date,item.firstParagraph,item.secondParagraph,item.thirdParagraph));
+});
 
-  Step 3: return the entire component.
+//   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new artible
 
-  Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
 
-  Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new artible
-
-*/

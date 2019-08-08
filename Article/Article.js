@@ -145,7 +145,16 @@ function createArticle(title,date,firstParagraph,secondParagraph,thirdParagraph)
 //   Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
 ArticleSpan.addEventListener('click', e => {
   ArticleItem.classList.toggle('article-open');
-  (ArticleItem.classList.contains('article-open'))?ArticleSpan.textContent="Close":ArticleSpan.textContent="Open";;
+
+  if (ArticleItem.classList.contains('article-open')){
+    ArticleSpan.textContent="Close";
+    TweenLite.set(e.target.parentElement, {height:"auto"})
+    TweenLite.from(e.target.parentElement, 1, {height:50})
+  }else{
+    ArticleSpan.textContent="Open";
+    TweenLite.to(e.target.parentElement, 1, {height:50});
+  }
+
 });
 
 ArticleTitle.textContent=title;
@@ -169,5 +178,4 @@ data.map(item=>{
 });
 
 //   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new artible
-
 

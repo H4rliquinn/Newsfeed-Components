@@ -50,8 +50,16 @@ const menuButton=document.querySelector('.menu-button');
 //   Step 4: add a click handler to the menu button, when clicked it should toggle the class 'menu--open' on the menu itself
 menuButton.addEventListener('click', e => {
   const menuDiv=document.querySelector('.menu');
+  
   menuDiv.classList.toggle('menu--open');
-  // console.log(e.target);
+  // console.log(menuDiv.classList);
+  if (menuDiv.classList.contains('menu--open')){
+    TweenLite.to('.menu', 1, {width: 0});
+    TweenLite.to('.menu ul li', 1, {fontSize:0});
+  } else{
+    TweenLite.to('.menu', 1, {width: 350});
+    TweenLite.to('.menu ul li', 1, {fontSize:32});
+  }
 });
 //   Step 5: return the menu component.
 const menuComplete = menuComp(menuItems);
@@ -60,7 +68,6 @@ const menuComplete = menuComp(menuItems);
 //   Step 6: add the menu component to the DOM.
 const headerDiv=document.querySelector('.header');
 headerDiv.appendChild(menuComplete);
-
-
   
 
+// TweenMax.from('.header',2,{right:600});
